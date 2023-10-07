@@ -10,6 +10,12 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i1;
+import 'package:goodvas_demo/features/whats_new/cubit/whats_new_cubit.dart'
+    as _i5;
+import 'package:goodvas_demo/features/whats_new/data/whats_new_repository.dart'
+    as _i4;
+import 'package:goodvas_demo/features/whats_new/repository/base_whats_new_repository.dart'
+    as _i3;
 import 'package:injectable/injectable.dart' as _i2;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -18,11 +24,14 @@ extension GetItInjectableX on _i1.GetIt {
     String? environment,
     _i2.EnvironmentFilter? environmentFilter,
   }) {
-    _i2.GetItHelper(
+    final gh = _i2.GetItHelper(
       this,
       environment,
       environmentFilter,
     );
+    gh.factory<_i3.BaseWhatsNewRepository>(() => _i4.WhatsNewRepository());
+    gh.factory<_i5.WhatsNewCubit>(
+        () => _i5.WhatsNewCubit(gh<_i3.BaseWhatsNewRepository>()));
     return this;
   }
 }
