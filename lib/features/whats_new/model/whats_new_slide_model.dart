@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:goodvas_demo/features/whats_new/model/functional_element_type.dart';
 
-class WhatsNewSlideModel {
+class WhatsNewSlideModel extends Equatable {
   final String imagePath;
   final List<int> colorsValues;
   final String title;
@@ -15,4 +16,7 @@ class WhatsNewSlideModel {
     List<FunctionalElementType>? functionalElements,
   })  : colorsValues = colorsValues.length == 1 ? [colorsValues[0], colorsValues[0]] : colorsValues,
         functionalElements = functionalElements ?? [];
+
+  @override
+  List<Object?> get props => [imagePath, colorsValues, title, subtitle, functionalElements];
 }

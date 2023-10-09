@@ -8,6 +8,7 @@ import 'package:goodvas_demo/di/get_it.dart';
 import 'package:goodvas_demo/features/whats_new/cubit/whats_new_cubit.dart';
 import 'package:goodvas_demo/features/whats_new/cubit/whats_new_state.dart';
 import 'package:goodvas_demo/features/whats_new/model/whats_new_slide_model.dart';
+import 'package:goodvas_demo/features/whats_new/widget/functional_elements/whats_new_functional_element.dart';
 import 'package:goodvas_demo/features/whats_new/widget/whats_new_progress_indicator.dart';
 import 'package:goodvas_demo/ui_kit/app_text_style.dart';
 
@@ -51,6 +52,8 @@ class WhatsNewScreen extends StatelessWidget {
                     duration: _animationDuration,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                         colors: List.generate(
                           currentSlide.colorsValues.length,
                           (index) => Color(currentSlide.colorsValues[index]),
@@ -79,12 +82,7 @@ class WhatsNewScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 24),
                           _ImagesPageView(slides: state.slides),
-                          const Spacer(),
-                          _Title(text: currentSlide.title),
-                          if (currentSlide.subtitle == null &&
-                              currentSlide.functionalElements.isEmpty)
-                            const SizedBox(height: 96),
-                          _Subtitle(text: currentSlide.subtitle),
+                          _SlideBody(currentSlide: currentSlide),
                         ],
                       ),
                     ),
@@ -169,11 +167,51 @@ class _ImagesPageViewState extends State<_ImagesPageView> {
           physics: const NeverScrollableScrollPhysics(),
           children: List.generate(
             widget.slides.length,
-            (index) => Image.asset(
-              widget.slides[index].imagePath,
-              height: 311,
+            (index) => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Image.asset(
+                widget.slides[index].imagePath,
+                height: 311,
+              ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SlideBody extends StatelessWidget {
+  const _SlideBody({
+    required this.currentSlide,
+  });
+
+  static const _animationDuration = Duration(milliseconds: 500);
+
+  final WhatsNewSlideModel currentSlide;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: AnimatedSwitcher(
+        duration: _animationDuration,
+        child: Column(
+          key: ValueKey(currentSlide),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Spacer(),
+            _Title(text: currentSlide.title),
+            if (currentSlide.subtitle == null && currentSlide.functionalElements.isEmpty)
+              const SizedBox(height: 76),
+            _Subtitle(text: currentSlide.subtitle),
+            const SizedBox(height: 20),
+            ...List.generate(
+              currentSlide.functionalElements.length,
+              (index) => WhatsNewFunctionalElement.fromType(
+                type: currentSlide.functionalElements[index],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -185,22 +223,17 @@ class _Title extends StatelessWidget {
     required this.text,
   });
 
-  static const _animationDuration = Duration(milliseconds: 500);
-
   final String text;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: AnimatedSwitcher(
-        duration: _animationDuration,
-        child: Text(
-          key: ValueKey(text),
-          text,
-          textAlign: TextAlign.left,
-          style: AppTextStyle.title,
-        ),
+      child: Text(
+        key: ValueKey(text),
+        text,
+        textAlign: TextAlign.left,
+        style: AppTextStyle.title,
       ),
     );
   }
@@ -210,8 +243,6 @@ class _Subtitle extends StatelessWidget {
   const _Subtitle({
     this.text,
   });
-
-  static const _animationDuration = Duration(milliseconds: 500);
 
   final String? text;
 
@@ -226,14 +257,11 @@ class _Subtitle extends StatelessWidget {
           right: 32,
           bottom: 20,
         ),
-        child: AnimatedSwitcher(
-          duration: _animationDuration,
-          child: Text(
-            key: ValueKey(text),
-            textVar,
-            textAlign: TextAlign.left,
-            style: AppTextStyle.body,
-          ),
+        child: Text(
+          key: ValueKey(text),
+          textVar,
+          textAlign: TextAlign.left,
+          style: AppTextStyle.body,
         ),
       );
     }

@@ -79,9 +79,8 @@ class _WhatsNewProgressIndicatorState extends State<WhatsNewProgressIndicator>
                           builder: (context, _) {
                             return LinearProgressIndicator(
                               value: _animationController.value,
-                              valueColor:
-                                  const AlwaysStoppedAnimation<Color>(AppColors.progressWhite),
-                              backgroundColor: AppColors.progressWhite.withOpacity(0.2),
+                              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.progress),
+                              backgroundColor: AppColors.progress.withOpacity(0.2),
                             );
                           },
                         ),
@@ -96,8 +95,8 @@ class _WhatsNewProgressIndicatorState extends State<WhatsNewProgressIndicator>
                       margin: EdgeInsets.only(right: index < state.slides.length ? 4 : 0),
                       decoration: BoxDecoration(
                         color: state.slideNumber > index
-                            ? AppColors.progressWhite
-                            : AppColors.progressWhite.withOpacity(0.2),
+                            ? AppColors.progress
+                            : AppColors.progress.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(100),
                       ),
                     ),
