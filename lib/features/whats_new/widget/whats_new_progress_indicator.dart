@@ -6,13 +6,8 @@ import 'package:goodvas_demo/ui_kit/app_colors.dart';
 
 class WhatsNewProgressIndicator extends StatefulWidget {
   const WhatsNewProgressIndicator({
-    required this.slidesCount,
-    required this.currentSlideIndex,
     super.key,
   });
-
-  final int slidesCount;
-  final int currentSlideIndex;
 
   @override
   State<WhatsNewProgressIndicator> createState() => _WhatsNewProgressIndicatorState();
@@ -52,7 +47,7 @@ class _WhatsNewProgressIndicatorState extends State<WhatsNewProgressIndicator>
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<WhatsNewCubit, WhatsNewState>(
+    return BlocConsumer<WhatsNewCubit, WhatsNewState>(
       listener: (context, state) {
         if (state is PauseWhatsNewState) {
           _animationController.stop();
@@ -66,44 +61,55 @@ class _WhatsNewProgressIndicatorState extends State<WhatsNewProgressIndicator>
             ..animateTo(1);
         }
       },
-      child: Row(
-        children: List.generate(
-          widget.slidesCount,
-          (index) {
-            if (index == widget.currentSlideIndex) {
-              return Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(right: index < widget.slidesCount ? 4 : 0),
-                  child: AnimatedBuilder(
-                    animation: _animationController,
-                    builder: (context, _) {
-                      return LinearProgressIndicator(
-                        value: _animationController.value,
-                        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.progressWhite),
-                        backgroundColor: AppColors.progressWhite.withOpacity(0.2),
-                      );
-                    },
-                  ),
-                ),
-              );
-            }
+      buildWhen: (prevState, currentState) => currentState is ShowSlideWhatsNewState,
+      builder: (context, state) {
+        if (state is ShowSlideWhatsNewState) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              children: List.generate(
+                state.slides.length,
+                (index) {
+                  if (index == state.slideNumber) {
+                    return Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(right: index < state.slides.length ? 4 : 0),
+                        child: AnimatedBuilder(
+                          animation: _animationController,
+                          builder: (context, _) {
+                            return LinearProgressIndicator(
+                              value: _animationController.value,
+                              valueColor:
+                                  const AlwaysStoppedAnimation<Color>(AppColors.progressWhite),
+                              backgroundColor: AppColors.progressWhite.withOpacity(0.2),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  }
 
-            return Expanded(
-              child: Container(
-                width: double.maxFinite,
-                height: 4,
-                margin: EdgeInsets.only(right: index < widget.slidesCount ? 4 : 0),
-                decoration: BoxDecoration(
-                  color: widget.currentSlideIndex > index
-                      ? AppColors.progressWhite
-                      : AppColors.progressWhite.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(100),
-                ),
+                  return Expanded(
+                    child: Container(
+                      width: double.maxFinite,
+                      height: 4,
+                      margin: EdgeInsets.only(right: index < state.slides.length ? 4 : 0),
+                      decoration: BoxDecoration(
+                        color: state.slideNumber > index
+                            ? AppColors.progressWhite
+                            : AppColors.progressWhite.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ),
+            ),
+          );
+        }
+
+        return const SizedBox.shrink();
+      },
     );
   }
 }

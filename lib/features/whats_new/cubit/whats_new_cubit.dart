@@ -6,20 +6,26 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class WhatsNewCubit extends Cubit<WhatsNewState> {
-  WhatsNewCubit(BaseWhatsNewRepository repository)
-      : slides = repository.getSlides(),
-        super(ShowSlideWhatsNewState(0));
+  WhatsNewCubit(this._repository) : super(InitialWhatsNewState()) {
+    _init();
+  }
 
-  final List<WhatsNewSlideModel> slides;
+  final BaseWhatsNewRepository _repository;
+  late final List<WhatsNewSlideModel> _slides;
 
   int _currentSlide = 0;
 
+  void _init() {
+    _slides = _repository.getSlides();
+    emit(ShowSlideWhatsNewState(slides: _slides, slideNumber: 0));
+  }
+
   void nextSlide() {
-    if (_currentSlide == slides.length - 1) {
+    if (_currentSlide == _slides.length - 1) {
       emit(FinishWhatsNewState());
     } else {
       _currentSlide++;
-      emit(ShowSlideWhatsNewState(_currentSlide));
+      emit(ShowSlideWhatsNewState(slides: _slides, slideNumber: _currentSlide));
     }
   }
 
@@ -27,8 +33,7 @@ class WhatsNewCubit extends Cubit<WhatsNewState> {
     if (_currentSlide > 0) {
       _currentSlide--;
     }
-
-    emit(ShowSlideWhatsNewState(_currentSlide));
+    emit(ShowSlideWhatsNewState(slides: _slides, slideNumber: _currentSlide));
   }
 
   void pause() {
