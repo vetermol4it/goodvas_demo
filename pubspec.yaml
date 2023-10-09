@@ -11,11 +11,14 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #DI
   injectable: 2.3.1
   get_it: 7.6.4
 
+  #State management
   flutter_bloc: 8.1.3
 
+  #Classes equality
   equatable: 2.0.5
 
   flutter_svg: 2.0.7
@@ -27,7 +30,18 @@ dev_dependencies:
   flutter_lints: 2.0.0
 
   build_runner: 2.4.6
+
+  #DI codegen
   injectable_generator: 2.4.0
+
+  #Asseets codegen
+  flutter_gen_runner: 5.3.2
+
+flutter_gen:
+  output: lib/ui_kit/assets_gen/
+
+  integrations:
+    flutter_svg: true
 
 flutter:
   uses-material-design: true

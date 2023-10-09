@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodvas_demo/features/whats_new/cubit/whats_new_cubit.dart';
 import 'package:goodvas_demo/ui_kit/app_colors.dart';
+import 'package:goodvas_demo/ui_kit/assets_gen/assets.gen.dart';
 
 class WhatsNewLikeDislikeButtons extends StatelessWidget {
   const WhatsNewLikeDislikeButtons({super.key});
@@ -15,9 +16,7 @@ class WhatsNewLikeDislikeButtons extends StatelessWidget {
         children: [
           Expanded(
             child: _Button(
-              icon: SvgPicture.asset(
-                'assets/icons/dislike.svg',
-              ),
+              icon: Assets.icons.dislike.svg(),
               onTap: () {
                 context.read<WhatsNewCubit>().nextSlide();
               },
@@ -26,9 +25,7 @@ class WhatsNewLikeDislikeButtons extends StatelessWidget {
           const SizedBox(width: 17),
           Expanded(
             child: _Button(
-              icon: SvgPicture.asset(
-                'assets/icons/like.svg',
-              ),
+              icon: Assets.icons.like.svg(),
               onTap: () {
                 context.read<WhatsNewCubit>().nextSlide();
               },

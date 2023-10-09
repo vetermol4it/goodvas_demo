@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodvas_demo/di/get_it.dart';
 import 'package:goodvas_demo/features/whats_new/cubit/whats_new_cubit.dart';
 import 'package:goodvas_demo/features/whats_new/cubit/whats_new_state.dart';
@@ -11,6 +10,7 @@ import 'package:goodvas_demo/features/whats_new/model/whats_new_slide_model.dart
 import 'package:goodvas_demo/features/whats_new/widget/functional_elements/whats_new_functional_element.dart';
 import 'package:goodvas_demo/features/whats_new/widget/whats_new_progress_indicator.dart';
 import 'package:goodvas_demo/ui_kit/app_text_style.dart';
+import 'package:goodvas_demo/ui_kit/assets_gen/assets.gen.dart';
 
 class WhatsNewScreen extends StatelessWidget {
   const WhatsNewScreen({super.key});
@@ -118,9 +118,7 @@ class _CloseButton extends StatelessWidget {
       child: SizedBox(
         width: 32,
         height: 32,
-        child: SvgPicture.asset(
-          'assets/icons/close.svg',
-        ),
+        child: Assets.icons.close.svg(),
       ),
     );
   }

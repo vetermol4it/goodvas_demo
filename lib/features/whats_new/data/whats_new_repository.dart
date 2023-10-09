@@ -10,39 +10,39 @@ class WhatsNewRepository implements BaseWhatsNewRepository {
         WhatsNewSlideModel(
           imagePath: 'assets/images/slide0.png',
           title: 'Нам важно ваше мнение!\nОцените изменения в Simpler',
-          colorsValues: [0xFF99D2FF],
+          colorsValues: const [0xFF99D2FF],
         ),
         WhatsNewSlideModel(
           imagePath: 'assets/images/slide1.png',
           title: 'Включите тёмную тему',
           subtitle:
               'Занимайтесь английским даже ночью или просто посмотрите как изменится ваш интерфейс!',
-          functionalElements: [FunctionalElementType.likeDislikeButtons],
-          colorsValues: [0xFF19191B],
+          functionalElements: const [FunctionalElementType.likeDislikeButtons],
+          colorsValues: const [0xFF19191B],
         ),
         WhatsNewSlideModel(
           imagePath: 'assets/images/slide2.png',
           title: 'Соревнуйтесь в рейтинге космонавтов',
           subtitle:
               'Зарабатывайте очки и продвигайтесь к вершине! Займите место в ракете и изучите новые созвездия',
-          functionalElements: [FunctionalElementType.likeDislikeButtons],
-          colorsValues: [0xFFFF9B04],
+          functionalElements: const [FunctionalElementType.likeDislikeButtons],
+          colorsValues: const [0xFFFF9B04],
         ),
         WhatsNewSlideModel(
           imagePath: 'assets/images/slide3.png',
           title: 'Раскройте преступления и станьте комиссаром',
           subtitle:
               'Обновлённые детективные истории дают вам новый опыт в расследовании детективных дел',
-          functionalElements: [FunctionalElementType.likeDislikeButtons],
-          colorsValues: [0xFFF85153],
+          functionalElements: const [FunctionalElementType.likeDislikeButtons],
+          colorsValues: const [0xFFF85153],
         ),
         WhatsNewSlideModel(
           imagePath: 'assets/images/slide4.png',
           title: 'Тренируйте язык с помощью новых заданий',
           subtitle:
               'Чем больше уроков вы пройдёте, тем больше уникальных заданий станет доступно для тренировки ваших навыков',
-          functionalElements: [FunctionalElementType.likeDislikeButtons],
-          colorsValues: [
+          functionalElements: const [FunctionalElementType.likeDislikeButtons],
+          colorsValues: const [
             0xFF67E99A,
             0xFF44CD6E,
             0xFF4AD276,
