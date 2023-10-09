@@ -18,10 +18,12 @@ class ShowSlideWhatsNewState extends WhatsNewState {
   });
 
   @override
-  List<Object> get props => [slideNumber];
+  List<Object> get props => [slideNumber, slides];
 }
 
-class FinishWhatsNewState extends WhatsNewState {}
+class RestartWhatsNewState extends ShowSlideWhatsNewState {
+  RestartWhatsNewState({required super.slides}) : super(slideNumber: 0);
+}
 
 class PauseWhatsNewState extends WhatsNewState {}
 

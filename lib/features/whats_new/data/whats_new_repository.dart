@@ -9,7 +9,7 @@ class WhatsNewRepository implements BaseWhatsNewRepository {
   List<WhatsNewSlideModel> getSlides() => [
         WhatsNewSlideModel(
           imagePath: 'assets/images/slide0.png',
-          title: 'Нам важно ваше мнение! Оцените изменения в Simpler',
+          title: 'Нам важно ваше мнение!\nОцените изменения в Simpler',
           colorsValues: [0xFF99D2FF],
         ),
         WhatsNewSlideModel(

@@ -21,9 +21,7 @@ class WhatsNewCubit extends Cubit<WhatsNewState> {
   }
 
   void nextSlide() {
-    if (_currentSlide == _slides.length - 1) {
-      emit(FinishWhatsNewState());
-    } else {
+    if (_currentSlide < _slides.length - 1) {
       _currentSlide++;
       emit(ShowSlideWhatsNewState(slides: _slides, slideNumber: _currentSlide));
     }
@@ -32,8 +30,10 @@ class WhatsNewCubit extends Cubit<WhatsNewState> {
   void prevSlide() {
     if (_currentSlide > 0) {
       _currentSlide--;
+      emit(ShowSlideWhatsNewState(slides: _slides, slideNumber: _currentSlide));
+    } else {
+      emit(RestartWhatsNewState(slides: _slides));
     }
-    emit(ShowSlideWhatsNewState(slides: _slides, slideNumber: _currentSlide));
   }
 
   void pause() {
